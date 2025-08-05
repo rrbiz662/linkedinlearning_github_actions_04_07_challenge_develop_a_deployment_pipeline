@@ -64,3 +64,9 @@ jobs:
     steps:
       - run: echo "- Test the artifact in the production environment"
       - run: echo "# All tests and deployments have completed successfully!"
+      - run: |
+          {
+            awk '/::debug::stdout:/{ next } /Deployment complete!/ { print "## " $0; exit }' apply.txt
+           } > apply.md
+
+          cat apply.md >> $GITHUB_STEP_SUMMARY
