@@ -62,11 +62,5 @@ jobs:
     needs: production
     runs-on: ubuntu-latest
     steps:
-      - run: echo "- Test the artifact in the production environment" > result.txt
-      - run: echo "# All tests and deployments have completed successfully!" > result.txt
-      - run: |
-          {
-            awk '/::debug::stdout:/{ next } /Deployment complete!/ { print "## " $0; exit }' result.txt
-           } > apply.md
-
-          cat result.md >> $GITHUB_STEP_SUMMARY
+      - run: echo "- Test the artifact in the production environment" >> $GITHUB_STEP_SUMMARY
+      - run: echo "# All tests and deployments have completed successfully!" >> $GITHUB_STEP_SUMMARY 
